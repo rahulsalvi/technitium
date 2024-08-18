@@ -14,16 +14,16 @@ Get the address of the new node with
 source .env && tailscale ip $NAME
 ```
 Connect to the node at http://<TAILSCALE_IP>:5380
+
 Change the following settings:
 
-Settings->Recursion->Randomize Name->Turn OFF
-Settings->Recursion->NS Revalidation->Turn ON
-Settings->Blocking->Quick Add->Whichever lists you want
-Settings->DHCP->Disable anything that might be there
+ - Settings->Recursion->Randomize Name->Turn OFF
+ - Settings->Recursion->NS Revalidation->Turn ON
+ - Settings->Blocking->Quick Add->Whichever lists you want
+ - Settings->DHCP->Disable anything that might be there
 
 ### Configure clients to use this server
-Navigate to https://login.tailscale.com/admin/dns
-Set nameservers for nodes
+Use https://login.tailscale.com/admin/dns
 
 ## Stopping
 ```sh
