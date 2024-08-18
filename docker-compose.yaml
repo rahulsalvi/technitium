@@ -14,7 +14,7 @@ services:
     environment:
       # note that these values are only used for initializing the system
       # they do not take effect if /etc/dns already exists
-      - DNS_SERVER_DOMAIN=technitium
+      - DNS_SERVER_DOMAIN=${NAME}
       - DNS_SERVER_ADMIN_PASSWORD_FILE=/run/secrets/technitium_password
       - DNS_SERVER_PREFER_IPV6=true
     secrets:
