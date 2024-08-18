@@ -1,11 +1,11 @@
 ---
-name: dns1
+name: ${NAME}
 services:
   tailscale:
     image: ghcr.io/tailscale/tailscale:latest
     environment:
       - TS_AUTHKEY=file:/run/secrets/ts_authkey
-      - TS_HOSTNAME=dns1
+      - TS_HOSTNAME=${NAME}
     secrets:
       - ts_authkey
     restart: unless-stopped
