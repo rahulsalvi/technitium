@@ -3,9 +3,9 @@ My DNS setup. It's basically just technitium accessible over tailscale with a se
 
 ## Running
 ```
-./start.sh
+make start
 # follow the prompts
-# you will need a token from tailscale
+# you will need an oauth client ID and secret from tailscale
 ```
 
 ### Additional Config
@@ -25,7 +25,18 @@ Change the following settings:
 ### Configure clients to use this server
 Use https://login.tailscale.com/admin/dns
 
+## Updating
+```
+make update
+# follow the prompts
+# you will need an oauth client ID and secret from tailscale
+```
+
 ## Stopping
 ```sh
-docker compose down
+# bring down containers
+make down
+# (optional) clean up all resources
+# WARNING: this will prune docker volumes that aren't being used
+make clean
 ```
