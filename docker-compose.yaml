@@ -20,7 +20,7 @@ services:
     secrets:
       - technitium_password
     volumes:
-      - ${PWD}/technitium:/etc/dns
+      - technitium_data:/etc/dns
     depends_on:
       - tailscale
     network_mode: service:tailscale
@@ -30,6 +30,8 @@ secrets:
     environment: "TS_AUTHKEY"
   technitium_password:
     environment: "TECHNITIUM_PASSWORD"
+volumes:
+  technitium_data:
 networks:
   default:
     enable_ipv6: true
