@@ -6,6 +6,12 @@ services:
     environment:
       - TS_AUTHKEY=file:/run/secrets/ts_authkey
       - TS_HOSTNAME=${NAME}
+      - TS_USERSPACE=false
+    volumes:
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
     secrets:
       - ts_authkey
     restart: unless-stopped
