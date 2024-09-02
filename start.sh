@@ -50,6 +50,12 @@ export TS_AUTHKEY
 
 gum spin --title "Starting up" --show-output -- docker compose up -d --build
 
+if gum confirm "Would you like to write settings to .env?"; then
+	{
+		echo "NAME=${NAME}"
+	} >.env
+fi
+
 echo "Remember to update the tailnet DNS servers"
 echo "https://login.tailscale.com/admin/dns"
 
