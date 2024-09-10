@@ -22,6 +22,9 @@ Change the following settings:
  - Settings->Blocking->Quick Add->Whichever lists you want
  - Settings->DHCP->Disable anything that might be there
 
+Install the following apps:
+ - Query Logs (Sqlite)
+
 ### Configure clients to use this server
 Use https://login.tailscale.com/admin/dns
 
