@@ -1,0 +1,3 @@
+{$NAME}.ipn.rahulsalvi.com {
+	reverse_proxy localhost:5380
+}

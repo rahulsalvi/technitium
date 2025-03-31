@@ -1,19 +1,19 @@
 # dns
-My DNS setup. It's basically just technitium accessible over tailscale with a setup script.
+My DNS setup. It's basically just technitium accessible over tailscale.
 
 ## Running
 ```
-make start
-# follow the prompts
-# you will need an oauth client ID and secret from tailscale
+# create .env file with name
+echo dnsX >.env
+# get a tailscale authkey (https://login.tailscale.com/admin/settings/keys)
+# ephemeral, pre-approved, tags:nameserver,recursive,webserver
+echo $AUTHKEY >ts_authkey.txt
+# start
+docker compose up -d
 ```
 
 ### Additional Config
-Get the address of the new node with
-```
-source .env && tailscale ip $NAME
-```
-Connect to the node at http://<TAILSCALE_IP>:5380
+Connect to the node at https://dnsX.ipn.rahulsalvi.com
 
 Change the following settings:
 
@@ -30,16 +30,14 @@ Use https://login.tailscale.com/admin/dns
 
 ## Updating
 ```
-make update
-# follow the prompts
-# you will need an oauth client ID and secret from tailscale
+docker compose pull && docker compose up -d
 ```
 
 ## Stopping
 ```sh
 # bring down containers
-make down
+docker compose down --remove-orphans
 # (optional) clean up all resources
-# WARNING: this will prune docker volumes that aren't being used
-make clean
+# WARNING: this will prune docker volumes that aren't being used!
+docker system prune --all --volumes
 ```
