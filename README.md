@@ -3,8 +3,8 @@ My DNS setup. It's basically just technitium accessible over tailscale.
 
 ## Running
 ```
-# create .env file with name
-echo dnsX >.env
+# create .env file with ID (replace X with a number)
+echo ID=X >.env
 # get a tailscale authkey (https://login.tailscale.com/admin/settings/keys)
 # ephemeral, pre-approved, tags:nameserver,recursive,webserver
 echo $AUTHKEY >ts_authkey.txt
