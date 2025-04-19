@@ -1,5 +1,5 @@
-# dns
-My DNS setup. It's basically just technitium accessible over tailscale.
+# technitium
+technitium dns-server available via tailscale
 
 ## Running
 ```
@@ -13,7 +13,7 @@ docker compose up -d
 ```
 
 ### Additional Config
-Connect to the node at https://dnsX.ipn.rahulsalvi.com
+Connect to the node at https://technitiumX.ipn.rahulsalvi.com
 
 Change the following settings:
 

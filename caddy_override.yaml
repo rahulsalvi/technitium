@@ -1,0 +1,7 @@
+services:
+  caddy:
+    configs:
+      - source: Caddyfile
+        target: /etc/caddy/sites_enabled/Caddyfile
+    environment:
+      SERVICE_NAME: ${COMPOSE_PROJECT_NAME}

@@ -1,3 +1,3 @@
-dns{$ID}.ipn.rahulsalvi.com {
+{$SERVICE_NAME}.ipn.rahulsalvi.com {
 	reverse_proxy localhost:5380
 }

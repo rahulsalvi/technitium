@@ -1,66 +1,35 @@
----
-name: dns${ID}
+name: technitium${ID}
+
+include:
+  - path:
+      - ext/docker-compose-snippets/caddy.yaml
+      - caddy_override.yaml
+
 services:
-  tailscale:
-    image: ghcr.io/tailscale/tailscale:latest
-    environment:
-      - TS_AUTHKEY=file:/run/secrets/ts_authkey
-      - TS_HOSTNAME=dns${ID}
-      - TS_STATE_DIR=/var/lib/tailscale
-      - TS_USERSPACE=false
-      - TS_ACCEPT_DNS=true
-    volumes:
-      - ts_state:/var/lib/tailscale
-    devices:
-      - /dev/net/tun:/dev/net/tun
-    cap_add:
-      - NET_ADMIN
-    secrets:
-      - ts_authkey
-    healthcheck:
-      test: [ "CMD-SHELL", "tailscale status" ]
-      interval: 10s
-      timeout: 5s
-      retries: 60
-    restart: unless-stopped
-  caddy:
-    image: ghcr.io/rahulsalvi/caddy:latest
-    environment:
-      - ID=${ID}
-    volumes:
-      - ./Caddyfile:/etc/caddy/sites_enabled/Caddyfile:ro
-      - caddy_data:/data
-      - caddy_config:/config
-    cap_add:
-      - NET_ADMIN
-    depends_on:
-      tailscale:
-        condition: service_healthy
-    network_mode: service:tailscale
-    restart: unless-stopped
   technitium:
     image: technitium/dns-server:latest
     environment:
       # note that these values are only used for initializing the system
       # they do not take effect if /etc/dns already exists
-      - DNS_SERVER_DOMAIN=dns${ID}
-      - DNS_SERVER_PREFER_IPV6=true
-      - DNS_SERVER_WEB_SERVICE_LOCAL_ADDRESSES=127.0.0.1
+      DNS_SERVER_DOMAIN: ${COMPOSE_PROJECT_NAME}
+      DNS_SERVER_PREFER_IPV6: true
+      DNS_SERVER_WEB_SERVICE_LOCAL_ADDRESSES: 127.0.0.1
     volumes:
       - technitium_data:/etc/dns
+    # needs to be connected to the tailscale network for dns queries
     depends_on:
       tailscale:
         condition: service_healthy
     network_mode: service:tailscale
     restart: unless-stopped
+
+configs:
+  Caddyfile:
+    file: ./Caddyfile
+
+volumes:
+  technitium_data:
+
 secrets:
   ts_authkey:
     file: ./ts_authkey.txt
-volumes:
-  ts_state:
-  caddy_data:
-  caddy_config:
-  technitium_data:
-networks:
-  default:
-    enable_ipv6: true
