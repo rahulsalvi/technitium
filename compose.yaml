@@ -1,9 +1,9 @@
+# vim: ft=yaml.docker-compose
 name: technitium${ID}
 
 include:
-  - path:
-      - ext/docker-compose-snippets/caddy.yaml
-      - caddy_override.yaml
+  - ext/docker-compose-snippets/tailscale-caddy.yaml
+  - ext/docker-compose-snippets/simple-reverse-proxy.yaml
 
 services:
   technitium:
@@ -11,24 +11,20 @@ services:
     environment:
       # note that these values are only used for initializing the system
       # they do not take effect if /etc/dns already exists
-      DNS_SERVER_DOMAIN: ${COMPOSE_PROJECT_NAME}
+      DNS_SERVER_DOMAIN: ${COMPOSE_PROJECT_NAME}.ipn.rahulsalvi.com
       DNS_SERVER_PREFER_IPV6: true
       DNS_SERVER_WEB_SERVICE_LOCAL_ADDRESSES: 127.0.0.1
+      DNS_SERVER_WEB_SERVICE_HTTP_PORT: 8080
     volumes:
       - technitium_data:/etc/dns
-    # needs to be connected to the tailscale network for dns queries
-    depends_on:
-      tailscale:
-        condition: service_healthy
-    network_mode: service:tailscale
     restart: unless-stopped
-
-configs:
-  Caddyfile:
-    file: ./Caddyfile
+    extends:
+      file: ext/docker-compose-snippets/tailscale-app-base.yaml
+      service: tailscale-app-base
 
 volumes:
   technitium_data:
+
 
 secrets:
   ts_authkey:
