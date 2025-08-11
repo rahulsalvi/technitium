@@ -1,43 +1,51 @@
-# technitium
+# Technitium stack
+
 technitium dns-server available via tailscale
 
 ## Running
-```
+
+```sh
 # create .env file with ID (replace X with a number)
 echo ID=X >.env
-# get a tailscale authkey (https://login.tailscale.com/admin/settings/keys)
-# ephemeral, pre-approved, tags:nameserver,recursive,webserver
-echo $AUTHKEY >ts_authkey.txt
-# start
+# set these variables first
+#   TS_API_CLIENT_ID
+#   TS_API_CLIENT_SECRET
+./pre-deploy.sh
 docker compose up -d
 ```
 
 ### Additional Config
-Connect to the node at https://technitiumX.ipn.rahulsalvi.com
+
+Connect to the node at <https://technitiumX.ipn.rahulsalvi.com>
 
 Change the following settings:
 
- - Settings->Recursion->Randomize Name->Turn OFF
- - Settings->Recursion->NS Revalidation->Turn ON
- - Settings->Blocking->Quick Add->Whichever lists you want
- - Settings->DHCP->Disable anything that might be there
+- Settings->Recursion->Randomize Name->Turn OFF
+- Settings->Recursion->NS Revalidation->Turn ON
+- Settings->Blocking->Quick Add->Whichever lists you want
+- Settings->DHCP->Disable anything that might be there
 
 Install the following apps:
- - Query Logs (Sqlite)
+
+- Query Logs (Sqlite)
 
 ### Configure clients to use this server
-Use https://login.tailscale.com/admin/dns
 
-## Updating
-```
-docker compose pull && docker compose up -d
-```
+Use <https://login.tailscale.com/admin/dns>
 
-## Stopping
+## Development
+
 ```sh
-# bring down containers
-docker compose down --remove-orphans
-# (optional) clean up all resources
-# WARNING: this will prune docker volumes that aren't being used!
-docker system prune --all --volumes
+# install pre-commit hooks
+pre-commit install
+# view complete compose file
+docker compose config | bat --language yaml
+# deploy application (see Usage section)
+./pre-deploy.sh
+docker compose up -d
 ```
+
+## Licenses
+
+- [LICENSE](LICENSE)
+- [Technitium](https://github.com/TechnitiumSoftware/DnsServer/blob/master/LICENSE)
