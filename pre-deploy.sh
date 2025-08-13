@@ -12,11 +12,6 @@ if [ ! -e .env ]; then
 fi
 chmod -f 600 .env
 
-if ! grep -q "ID" .env; then
-    echo "ERROR: no ID variable"
-    RC=1
-fi
-
 if ! grep -q "TS_AUTHKEY" .env; then
     if [ -z "$TS_API_CLIENT_ID" ]; then
         echo "ERROR: no tailscale oauth credentials provided"

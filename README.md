@@ -5,8 +5,6 @@ technitium dns-server available via tailscale
 ## Running
 
 ```sh
-# create .env file with ID (replace X with a number)
-echo ID=X >.env
 # set these variables first
 #   TS_API_CLIENT_ID
 #   TS_API_CLIENT_SECRET

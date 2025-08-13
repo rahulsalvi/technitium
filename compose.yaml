@@ -1,6 +1,6 @@
 # vim: ft=yaml.docker-compose
 ---
-name: technitium${ID}
+name: technitium
 
 include:
   - ext/docker-compose-snippets/tailscale-caddy.yaml
