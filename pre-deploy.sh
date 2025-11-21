@@ -21,7 +21,7 @@ if ! grep -q "TS_AUTHKEY" .env; then
         {
             # add a newline to ensure there's one before this section
             echo ""
-            echo "TS_AUTHKEY=$(get-authkey -tags "$TS_TAGS" -ephemeral -preauth)"
+            echo "TS_AUTHKEY=$(get-authkey -tags "$TS_TAGS" -preauth)"
         } >>.env
     fi
 fi
